@@ -61,6 +61,7 @@ class Cannonball:
 
         return xs, ys
 
+
 def run_app():
     st.title("Cannonball Trajectory")
 
@@ -98,6 +99,21 @@ def run_app():
             .properties(width=700, height=400)
         )
         st.altair_chart(chart, use_container_width=True)
+
+class Crazyball(Cannonball):
+    def __init__(self, x):
+        super().__init__(x)
+
+    def move(self, sec, grav):
+        self.rand_q = random.randrange(0,10)
+        if self.getX() < 400:
+            dy = self._vy * sec + self.rand_q
+
+        dx = self._vx * sec
+        self._vy = self._vy - grav * sec
+
+        self._x = self._x + dx
+        self._y = self._y + dy
 
 
 if __name__ == "__main__":
