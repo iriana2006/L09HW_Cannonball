@@ -70,7 +70,7 @@ def run_app():
     )
     velocity = st.selectbox("Initial velocity", options=[15, 25, 40], index=1)
 
-    gravity_options = {"Earth": 9.81}
+    gravity_options = {"Earth": 9.81, "Moon": 1.63}
     gravity_name = st.selectbox("Gravity", options=list(gravity_options.keys()), index=0)
     gravity = gravity_options[gravity_name]
     step = .1
@@ -101,6 +101,21 @@ def run_app():
         st.altair_chart(chart, use_container_width=True)
 
 class Crazyball(Cannonball):
+    def __init__(self, x):
+        super().__init__(x)
+
+    def move(self, sec, grav):
+        self.rand_q = random.randrange(0,10)
+        if self.getX() < 400:
+            dy = self._vy * sec + self.rand_q
+
+        dx = self._vx * sec
+        self._vy = self._vy - grav * sec
+
+        self._x = self._x + dx
+        self._y = self._y + dy
+
+class ball(Cannonball):
     def __init__(self, x):
         super().__init__(x)
 
